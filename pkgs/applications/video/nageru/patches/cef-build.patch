@@ -1,0 +1,43 @@
+diff --git a/meson.build b/meson.build
+index 6325d5a..2fc053e 100644
+--- a/meson.build
++++ b/meson.build
+@@ -93,8 +93,9 @@ if have_cef
+ 
+ 	system_cef = (cef_build_type == 'system')
+ 	if system_cef
+-		cef_lib_dir = cef_dir
+-		cef_resource_dir = cef_dir
++		cef_lib_dir = join_paths(cef_dir, 'lib')
++		cef_resource_dir = join_paths(cef_dir, 'share/cef')
++		nageru_include_dirs += include_directories(cef_dir)
+ 	else
+ 		cef_lib_dir = join_paths(cef_dir, cef_build_type)
+ 		cef_resource_dir = join_paths(cef_dir, 'Resources')
+@@ -105,13 +106,13 @@ if have_cef
+ 		nageru_install_rpath = '$ORIGIN/'
+ 	endif
+ 
+-	cefdep = cxx.find_library('cef', dirs: cef_lib_dir)
++	cefdep = cxx.find_library('libcef', dirs: cef_lib_dir)
+ 	nageru_deps += cefdep
+ 
+ 	# CEF wrapper library; not built as part of the CEF binary distribution,
+ 	# but should be if CEF is installed as a system library.
+ 	if system_cef
+-		cefdlldep = cxx.find_library('cef_dll_wrapper')
++		cefdlldep = cxx.find_library('libcef_dll_wrapper', dirs: cef_lib_dir)
+ 		nageru_deps += cefdlldep
+ 	else
+ 		cmake = find_program('cmake')
+@@ -129,8 +130,8 @@ if have_cef
+ 		nageru_deps += cefdlldep
+ 	endif
+ 
+-	cef_libs = ['libEGL.so', 'libGLESv2.so', 'snapshot_blob.bin', 'v8_context_snapshot.bin']
+-	cef_resources = ['cef.pak', 'cef_100_percent.pak', 'cef_200_percent.pak', 'cef_extensions.pak', 'devtools_resources.pak']
++	cef_libs = []
++	cef_resources = ['cef.pak', 'cef_100_percent.pak', 'cef_200_percent.pak', 'cef_extensions.pak', 'devtools_resources.pak', 'snapshot_blob.bin', 'v8_context_snapshot.bin']
+ 	if not get_option('cef_no_icudtl')
+ 		cef_resources += ['icudtl.dat']
+ 	endif

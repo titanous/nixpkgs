@@ -5829,6 +5829,8 @@ in
 
   nabi = callPackage ../tools/inputmethods/nabi { };
 
+  nageru = callPackage ../applications/video/nageru {  };
+
   nahid-fonts = callPackage ../data/fonts/nahid-fonts { };
 
   namazu = callPackage ../tools/text/namazu { };
