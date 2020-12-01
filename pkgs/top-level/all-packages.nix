@@ -12335,6 +12335,8 @@ in
   bionic = assert stdenv.hostPlatform.useAndroidPrebuilt;
     pkgs."androidndkPkgs_${stdenv.hostPlatform.ndkVer}".libraries;
 
+  bmusb = callPackage ../development/libraries/bmusb { };
+
   bobcat = callPackage ../development/libraries/bobcat { };
 
   boehmgc = callPackage ../development/libraries/boehm-gc { };
