@@ -14810,6 +14810,8 @@ in
 
   mergerfs-tools = callPackage ../tools/filesystems/mergerfs/tools.nix { };
 
+  qcustomplot = qt5.callPackage ../development/libraries/qcustomplot { };
+
   ## libGL/libGLU/Mesa stuff
 
   # Default libGL implementation, should provide headers and
